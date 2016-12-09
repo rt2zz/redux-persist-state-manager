@@ -19,8 +19,10 @@ export default (reducer, config, migrations) => {
 }
 
 const createVersionedReducer = (reducer, currentVersion) => (state, action) => {
+  let { version, ...restState } = state || {}
+  if (!state) restState = state
+
   // @NOTE remove version because of combineReducers warning
-  const { version, ...restState } = state
   return {
     ...reducer(restState, action),
     version: currentVersion,
@@ -28,7 +30,7 @@ const createVersionedReducer = (reducer, currentVersion) => (state, action) => {
 }
 
 const migrateState = (state, migrations, currentVersion, { log }) => {
-  if (!state.version && process.env.NODE_ENV !== 'production') console.error('redux-persist-state-manager: every persistor needs to have the version reducer in scope (either in whitelist or not in blacklist)')
+  if (!state.version && process.env.NODE_ENV !== 'production') console.error('redux-persist-state-manager: every persistor needs to have the version reducer in scope (either in whitelist or not in blacklist). If this is the first run after installing state manager, ignore this warning.')
 
   let inboundVersion = state.version || 0
   if (inboundVersion === currentVersion) {
