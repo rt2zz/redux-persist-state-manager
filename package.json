@@ -1,0 +1,30 @@
+{
+  "name": "redux-persist-state-manager",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"NOTE: no test specified\" && exit 0"
+  },
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "clean": "rimraf lib dist",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rt2zz/redux-persist-state-manager.git"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
+    "rimraf": "^2.5.4",
+    "standard": "^8.6.0"
+  }
+}
