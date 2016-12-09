@@ -1,18 +1,15 @@
 {
   "name": "redux-persist-state-manager",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
-  "scripts": {
-    "test": "echo \"NOTE: no test specified\" && exit 0"
-  },
-  "author": "",
-  "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir lib",
     "clean": "rimraf lib dist",
     "prepublish": "npm run clean && npm run build"
   },
+  "author": "",
+  "license": "MIT",
   "files": [
     "lib"
   ],
