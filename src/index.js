@@ -34,12 +34,12 @@ const migrateState = (state, migrations, currentVersion, { log }) => {
 
   let inboundVersion = state.version || 0
   if (inboundVersion === currentVersion) {
-    if (log) console.log('verions match, noop migration')
+    if (log) console.log('redux-persist-state-manager: verions match, noop migration')
     return state
   }
   if (inboundVersion > currentVersion) {
-    if (log) console.error('downgrading version is not supported')
-    return
+    if (log) console.error('redux-persist-state-manager: downgrading version is not supported')
+    return state
   }
 
   let migrationKeys = Object
@@ -48,9 +48,9 @@ const migrateState = (state, migrations, currentVersion, { log }) => {
     .filter((key) => key > inboundVersion)
     .sort()
 
-  if (log) console.log('migrationKeys', migrationKeys)
+  if (log) console.log('redux-persist-state-manager: migrationKeys', migrationKeys)
   let migratedState = migrationKeys.reduce((state, versionKey) => {
-    if (log) console.log('running migration', versionKey)
+    if (log) console.log('redux-persist-state-manager: running migration for versionKey', versionKey)
     return migrations[versionKey](state)
   }, state)
 
@@ -66,13 +66,13 @@ function stateReconciler(state, inboundState, reducedState, { log }) {
 
     // if initial state is an object but inbound state is null/undefined, skip
     if (typeof state[key] === 'object' && !inboundState[key]) {
-      if (log) console.log('redux-persist/autoRehydrate: sub state for key `%s` is falsy but initial state is an object, skipping autoRehydrate.', key)
+      if (log) console.log('redux-persist-state-manager/autoRehydrate: sub state for key `%s` is falsy but initial state is an object, skipping autoRehydrate.', key)
       return
     }
 
     // if reducer modifies substate, skip auto rehydration
     if (state[key] !== reducedState[key]) {
-      if (log) console.log('redux-persist/autoRehydrate: sub state for key `%s` modified, skipping autoRehydrate.', key)
+      if (log) console.log('redux-redux-persist-state-manager/autoRehydrate: sub state for key `%s` modified, skipping autoRehydrate.', key)
       newState[key] = reducedState[key]
       return
     }
@@ -81,7 +81,7 @@ function stateReconciler(state, inboundState, reducedState, { log }) {
     if (isStatePlainEnough(inboundState[key]) && isStatePlainEnough(state[key])) newState[key] = {...state[key], ...inboundState[key]} // shallow merge
     else newState[key] = inboundState[key] // hard set
 
-    if (log) console.log('redux-persist/autoRehydrate: key `%s`, rehydrated to ', key, newState[key])
+    if (log) console.log('redux-redux-persist-state-manager/autoRehydrate: key `%s`, rehydrated to ', key, newState[key])
   })
   return newState
 }
