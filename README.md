@@ -40,9 +40,9 @@ const stateMigrations = {
 const VERSION = 3
 const stateManagedReducer = stateManager(rootReducer, { version: VERSION }, stateMigrations)
 ```
-What happens:
-1. redux-persist loads stored state
-1. REHYDRATE action is dispatched
-1. stateManager see the old version is 2 and the new version 3, and decides to run all migrations > 2 and <= 3
-1. migration 3 is run which increments the counter
-1. rehydrated state is now `{ version: 3,  counter: 101 }`
+What happens:  
+1. redux-persist loads stored state  
+2. REHYDRATE action is dispatched  
+3. stateManager see the old version is 2 and the new version 3, and decides to run all migrations > 2 and <= 3  
+4. migration 3 is run which increments the counter  
+5. rehydrated state is now `{ version: 3,  counter: 101 }`  
