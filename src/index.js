@@ -35,7 +35,7 @@ const createVersionedReducer = (reducer, currentVersion) => (state, action) => {
 const migrateState = (state, migrations, currentVersion, { debug, log }) => {
   if (process.env.NODE_ENV !== 'production') {
     // if the migrated state has keys, but is missing version, show dev warning
-    if (Object.keys(state).length > 0 && !state.version) console.error('redux-persist-state-manager: every persistor needs to have the version reducer in scope (either in whitelist or not in blacklist). If this is the first run after installing state manager, ignore this warning.')
+    if (Object.keys(state).length > 0 && !state.version) console.log('redux-persist-state-manager: every persistor needs to have the version reducer in scope (either in whitelist or not in blacklist). If this is the first run after installing state manager, ignore this warning.')
   }
   let inboundVersion = state.version || 0
   if (inboundVersion === currentVersion) {
