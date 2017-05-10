@@ -46,3 +46,28 @@ What happens:
 3. stateManager see the old version is 2 and the new version 3, and decides to run all migrations > 2 and <= 3  
 4. migration 3 is run which increments the counter  
 5. rehydrated state is now `{ version: 3,  counter: 101 }`  
+
+## Injected Reducers Example
+```js
+import { combineReducers } from 'redux'
+import stateManager from 'redux-persist-state-manager'
+
+const VERSION = 1
+const stateMigrations = {
+  '1': (state) => ({})
+}
+export const makeRootReducer = (asyncReducers) => {
+  return stateManager(
+    combineReducers(
+      {
+        core: coreLayoutReducer,
+        ...asyncReducers
+      }
+    ),
+    {
+      version: VERSION
+    },
+    stateMigrations
+  )
+}
+```
