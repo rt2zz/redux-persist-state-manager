@@ -78,7 +78,7 @@ function stateReconciler(state, inboundState, reducedState, { debug, log }) {
       `)
 
       // check recently added reducer properties that may require a migration
-      if (typeof state[key] === 'object' && typeof inboundState[key] === 'object') {
+      if (!!state[key] && typeof state[key] === 'object' && typeof inboundState[key] === 'object') {
         const stateKeys = Object.keys(state[key])
         const inboundStateKeys = Object.keys(inboundState[key])
         stateKeys.forEach((checkKey) => {
